@@ -1,13 +1,6 @@
 import StepWrapper from "../layout/StepWrapper";
 import { formatCurrency } from "../../utils/formatCurrency";
 
-const FIELD_LABELS = {
-  providerName: "Provider",
-  invoiceDate: "Invoice Date",
-  totalAmount: "Invoice Total",
-  patientName: "Patient",
-};
-
 export default function SubmissionResult({ state }) {
   const { submission, routing, claim, extraction } = state;
   const { claimRef, manualReviewRequested, editLog } = submission;
@@ -16,32 +9,67 @@ export default function SubmissionResult({ state }) {
   if (manualReviewRequested) {
     return (
       <StepWrapper>
-        <div className="flex flex-col items-center gap-4 py-6 text-center">
-          {/* Icon */}
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-100">
-            <svg className="h-9 w-9 text-blue-600" viewBox="0 0 24 24" fill="currentColor">
-              <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z" clipRule="evenodd" />
-            </svg>
+        <div className="flex flex-col items-center gap-6 py-4 text-center">
+          {/* Hero Icon */}
+          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary-light">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary shadow-lg shadow-primary/30">
+              <span className="material-icons-round text-3xl text-white">support_agent</span>
+            </div>
           </div>
 
           <div>
-            <h2 className="text-xl font-bold text-gray-900">Sent to Review Team</h2>
-            <p className="mt-1 text-sm text-gray-500">
+            <h2 className="text-2xl font-bold text-text-primary">Sent to Review Team</h2>
+            <p className="mt-2 text-sm text-text-secondary">
               Your claim has been submitted for manual review by our team.
             </p>
           </div>
 
           {/* Claim ref */}
-          <div className="w-full rounded-xl bg-blue-50 p-4">
-            <p className="text-xs text-blue-500 font-medium uppercase tracking-wide">Claim Reference</p>
-            <p className="text-2xl font-bold text-blue-700 mt-1">{claimRef}</p>
+          <div className="w-full rounded-2xl border border-gray-100 bg-gray-50 p-5">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-secondary">Claim Reference</p>
+            <p className="mt-1 font-mono text-2xl font-bold text-text-primary">{claimRef}</p>
           </div>
 
-          <div className="w-full rounded-xl bg-gray-50 p-4 text-left">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">What happens next</p>
-            <p className="text-sm text-gray-600">
-              A claims specialist will review your documents within <span className="font-semibold">5–7 business days</span> and contact you via email.
-            </p>
+          {/* What's Next Timeline */}
+          <div className="w-full rounded-2xl border border-gray-100 bg-surface-light p-5 text-left">
+            <h3 className="mb-4 flex items-center gap-2 text-sm font-bold text-text-primary">
+              <span className="material-icons-round text-lg text-primary">timeline</span>
+              What happens next
+            </h3>
+
+            <div className="relative space-y-4 pl-6">
+              {/* Timeline line */}
+              <div className="absolute left-[7px] top-2 h-[calc(100%-16px)] w-0.5 bg-gray-200" />
+
+              {/* Step 1 */}
+              <div className="relative flex gap-3">
+                <div className="absolute -left-6 flex h-4 w-4 items-center justify-center rounded-full bg-teal">
+                  <span className="material-icons-round text-xs text-white">check</span>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-text-primary">Claim Received</p>
+                  <p className="text-xs text-text-secondary">Your claim is in our system</p>
+                </div>
+              </div>
+
+              {/* Step 2 */}
+              <div className="relative flex gap-3">
+                <div className="absolute -left-6 h-4 w-4 animate-pulse rounded-full bg-primary" />
+                <div>
+                  <p className="text-sm font-medium text-text-primary">Under Review</p>
+                  <p className="text-xs text-text-secondary">A specialist is reviewing your documents</p>
+                </div>
+              </div>
+
+              {/* Step 3 */}
+              <div className="relative flex gap-3 opacity-50">
+                <div className="absolute -left-6 h-4 w-4 rounded-full border-2 border-gray-300 bg-white" />
+                <div>
+                  <p className="text-sm font-medium text-text-primary">Decision</p>
+                  <p className="text-xs text-text-secondary">5–7 business days</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </StepWrapper>
@@ -53,79 +81,141 @@ export default function SubmissionResult({ state }) {
 
   return (
     <StepWrapper>
-      <div className="flex flex-col items-center gap-4 py-6 text-center">
-        {/* Icon */}
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-          <svg className="h-9 w-9 text-green-600" viewBox="0 0 24 24" fill="currentColor">
-            <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clipRule="evenodd" />
-          </svg>
+      <div className="flex flex-col items-center gap-6 py-4 text-center">
+        {/* Hero Icon */}
+        <div className={`flex h-20 w-20 items-center justify-center rounded-full ${
+          isFastTrack ? "bg-mint-green" : "bg-primary-light"
+        }`}>
+          <div className={`flex h-14 w-14 items-center justify-center rounded-full shadow-lg ${
+            isFastTrack ? "bg-teal shadow-teal/40" : "bg-primary shadow-primary/30"
+          }`}>
+            <span className="material-icons-round text-3xl text-white">check</span>
+          </div>
         </div>
 
         <div>
-          <h2 className="text-xl font-bold text-gray-900">Claim Submitted!</h2>
-          <p className="mt-1 text-sm text-gray-500">
+          <h2 className="text-2xl font-bold text-text-primary">Claim Submitted!</h2>
+          <p className="mt-2 text-sm text-text-secondary">
             Your OPD claim has been successfully received.
           </p>
         </div>
 
         {/* Claim ref + SLA */}
-        <div className="w-full rounded-xl bg-green-50 p-4">
-          <p className="text-xs text-green-600 font-medium uppercase tracking-wide">Claim Reference</p>
-          <p className="text-2xl font-bold text-green-700 mt-1">{claimRef}</p>
-          <div className={`mt-2 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${
-            isFastTrack ? "bg-green-200 text-green-800" : "bg-blue-100 text-blue-700"
+        <div className={`w-full rounded-2xl p-5 ${isFastTrack ? "bg-mint-green" : "bg-primary-light"}`}>
+          <p className={`text-xs font-medium uppercase tracking-wider ${
+            isFastTrack ? "text-teal" : "text-primary"
+          }`}>Claim Reference</p>
+          <p className={`mt-1 font-mono text-2xl font-bold ${
+            isFastTrack ? "text-teal" : "text-primary"
+          }`}>{claimRef}</p>
+
+          <div className={`mt-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold ${
+            isFastTrack
+              ? "bg-gradient-to-r from-yellow-200 to-amber-200 text-amber-800"
+              : "bg-white/50 text-primary"
           }`}>
-            {isFastTrack ? (
-              <>
-                <svg className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z" />
-                </svg>
-                Fast Track · {routing.sla}
-              </>
-            ) : (
-              <>
-                <svg className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clipRule="evenodd" />
-                </svg>
-                Standard · {routing.sla}
-              </>
-            )}
+            <span className="material-icons-round text-sm">
+              {isFastTrack ? "bolt" : "schedule"}
+            </span>
+            {isFastTrack ? `Fast Track · ${routing.sla}` : `Standard · ${routing.sla}`}
           </div>
         </div>
 
         {/* Summary */}
-        <div className="w-full rounded-xl bg-gray-50 p-4 text-left space-y-2">
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Claim Summary</p>
-          <SummaryRow label="Service" value={claim.serviceType} />
-          <SummaryRow label="Claimed Amount" value={formatCurrency(claim.amount)} />
-          {fields.providerName.value && (
-            <SummaryRow label="Provider" value={fields.providerName.value} />
-          )}
-          {fields.invoiceDate.value && (
-            <SummaryRow label="Invoice Date" value={fields.invoiceDate.value} />
-          )}
-          {fields.patientName.value && (
-            <SummaryRow label="Patient" value={fields.patientName.value} />
-          )}
+        <div className="w-full rounded-2xl border border-gray-100 bg-surface-light p-5 text-left">
+          <h3 className="mb-4 flex items-center gap-2 text-sm font-bold text-text-primary">
+            <span className="material-icons-round text-lg text-text-secondary">receipt_long</span>
+            Claim Summary
+          </h3>
+
+          <div className="space-y-3">
+            <SummaryRow label="Service" value={claim.serviceType} />
+            <SummaryRow label="Claimed Amount" value={formatCurrency(claim.amount)} />
+            {fields.providerName.value && (
+              <SummaryRow label="Provider" value={fields.providerName.value} />
+            )}
+            {fields.invoiceDate.value && (
+              <SummaryRow label="Invoice Date" value={fields.invoiceDate.value} />
+            )}
+            {fields.patientName.value && (
+              <SummaryRow label="Patient" value={fields.patientName.value} />
+            )}
+          </div>
+        </div>
+
+        {/* What's Next Timeline */}
+        <div className="w-full rounded-2xl border border-gray-100 bg-surface-light p-5 text-left">
+          <h3 className="mb-4 flex items-center gap-2 text-sm font-bold text-text-primary">
+            <span className="material-icons-round text-lg text-primary">timeline</span>
+            What happens next
+          </h3>
+
+          <div className="relative space-y-4 pl-6">
+            {/* Timeline line */}
+            <div className="absolute left-[7px] top-2 h-[calc(100%-16px)] w-0.5 bg-gray-200" />
+
+            {/* Step 1 - Completed */}
+            <div className="relative flex gap-3">
+              <div className="absolute -left-6 flex h-4 w-4 items-center justify-center rounded-full bg-teal">
+                <span className="material-icons-round text-xs text-white">check</span>
+              </div>
+              <div>
+                <p className="text-sm font-medium text-text-primary">Claim Submitted</p>
+                <p className="text-xs text-text-secondary">Your claim is in our system</p>
+              </div>
+            </div>
+
+            {/* Step 2 - Active */}
+            <div className="relative flex gap-3">
+              <div className={`absolute -left-6 h-4 w-4 animate-pulse rounded-full ${
+                isFastTrack ? "bg-teal" : "bg-primary"
+              }`} />
+              <div>
+                <p className="text-sm font-medium text-text-primary">
+                  {isFastTrack ? "AI Review" : "Under Review"}
+                </p>
+                <p className="text-xs text-text-secondary">
+                  {isFastTrack ? "Automated verification in progress" : "A specialist is reviewing"}
+                </p>
+              </div>
+            </div>
+
+            {/* Step 3 - Pending */}
+            <div className="relative flex gap-3 opacity-50">
+              <div className="absolute -left-6 h-4 w-4 rounded-full border-2 border-gray-300 bg-white" />
+              <div>
+                <p className="text-sm font-medium text-text-primary">Reimbursement</p>
+                <p className="text-xs text-text-secondary">
+                  Expected in {routing.sla}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Edit log */}
         {editLog.length > 0 && (
-          <div className="w-full rounded-xl border border-amber-200 bg-amber-50 p-4 text-left">
-            <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-2">
+          <div className="w-full rounded-2xl border border-amber-200 bg-amber-50 p-5 text-left">
+            <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-amber-800">
+              <span className="material-icons-round text-lg">edit_note</span>
               Manual Edits ({editLog.length})
-            </p>
-            <ul className="space-y-1">
+            </h3>
+            <ul className="space-y-2">
               {editLog.map((entry, i) => (
-                <li key={i} className="text-xs text-amber-600">
-                  <span className="font-medium capitalize">{entry.field}</span>
-                  {" → "}
-                  <span className="font-semibold">{String(entry.newValue)}</span>
+                <li key={i} className="flex items-center justify-between text-sm">
+                  <span className="font-medium capitalize text-amber-700">{entry.field}</span>
+                  <span className="font-semibold text-amber-900">{String(entry.newValue)}</span>
                 </li>
               ))}
             </ul>
           </div>
         )}
+
+        {/* Action button */}
+        <button className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-base font-bold text-white shadow-lg shadow-primary/30 transition-all hover:bg-primary-hover active:scale-[0.98]">
+          <span className="material-icons-round">home</span>
+          Back to Home
+        </button>
       </div>
     </StepWrapper>
   );
@@ -133,9 +223,9 @@ export default function SubmissionResult({ state }) {
 
 function SummaryRow({ label, value }) {
   return (
-    <div className="flex items-center justify-between">
-      <span className="text-xs text-gray-500">{label}</span>
-      <span className="text-sm font-medium text-gray-800">{value}</span>
+    <div className="flex items-center justify-between border-b border-dashed border-gray-200 pb-2 last:border-0 last:pb-0">
+      <span className="text-sm text-text-secondary">{label}</span>
+      <span className="text-sm font-medium text-text-primary">{value}</span>
     </div>
   );
 }
