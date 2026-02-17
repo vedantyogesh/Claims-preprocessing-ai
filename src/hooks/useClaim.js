@@ -1,5 +1,6 @@
 import { useReducer, useRef } from "react";
 import { extractInvoiceData } from "../engine/gemini";
+import { getSampleCache } from "../engine/sampleCache";
 import { runValidation } from "../engine/validation";
 import { routeClaim } from "../engine/routing";
 import { checkRateLimit, recordCall } from "../utils/rateLimiter";
@@ -9,7 +10,6 @@ const initialState = {
   step: 1, // 1–5
   claim: {
     serviceType: "",
-    amount: null,
     uploadedFile: null,
     filePreview: null,
   },
@@ -143,6 +143,10 @@ function claimReducer(state, action) {
         step: 5,
       };
 
+    case "RESET":
+      // Preserve the user's own API key across resets so they don't have to re-enter it
+      return { ...initialState, ui: { ...initialState.ui, userApiKey: state.ui.userApiKey } };
+
     case "GO_BACK": {
       // Step 4 (post-validation) goes back to step 3 (review), not step 2
       const prevStep = state.step === 4 ? 3 : Math.max(1, state.step - 1);
@@ -173,6 +177,21 @@ export function useClaim() {
   const abortControllerRef = useRef(null);
 
   async function analyseInvoice(file) {
+    // ── Sample cache fast-path ─────────────────────────────────────────────
+    // Known sample filenames get their pre-stored real Gemini response served
+    // locally — zero API calls, zero quota cost. The loading animation still
+    // plays for ~2 s so the AI scanning UX is preserved.
+    const cached = getSampleCache(file.name);
+    if (cached) {
+      abortControllerRef.current = null; // no in-flight request to manage
+      dispatch({ type: "SET_LOADING", value: true });
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      dispatch({ type: "SET_EXTRACTION", payload: cached });
+      dispatch({ type: "ADVANCE_STEP" });
+      return;
+    }
+
+    // ── Real Gemini path ───────────────────────────────────────────────────
     // Rate limit check (bypassed in dev mode automatically)
     const { allowed, reason } = checkRateLimit();
     if (!allowed) {
@@ -231,5 +250,14 @@ export function useClaim() {
     dispatch({ type: "GO_BACK" });
   }
 
-  return { state, analyseInvoice, submitClaim, editField, requestManualReview, goBack, dispatch };
+  function resetClaim() {
+    // Cancel any in-flight request before resetting
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+    dispatch({ type: "RESET" });
+  }
+
+  return { state, analyseInvoice, submitClaim, editField, requestManualReview, goBack, resetClaim, dispatch };
 }
