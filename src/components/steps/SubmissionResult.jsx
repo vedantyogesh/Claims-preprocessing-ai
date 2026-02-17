@@ -1,7 +1,7 @@
 import StepWrapper from "../layout/StepWrapper";
 import { formatCurrency } from "../../utils/formatCurrency";
 
-export default function SubmissionResult({ state }) {
+export default function SubmissionResult({ state, resetClaim }) {
   const { submission, routing, claim, extraction } = state;
   const { claimRef, manualReviewRequested, editLog } = submission;
   const { fields } = extraction;
@@ -71,6 +71,15 @@ export default function SubmissionResult({ state }) {
               </div>
             </div>
           </div>
+
+          {/* Back to Home */}
+          <button
+            onClick={resetClaim}
+            className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-base font-bold text-white shadow-lg shadow-primary/30 transition-all hover:bg-primary-hover active:scale-[0.98]"
+          >
+            <span className="material-icons-round">home</span>
+            Back to Home
+          </button>
         </div>
       </StepWrapper>
     );
@@ -212,7 +221,10 @@ export default function SubmissionResult({ state }) {
         )}
 
         {/* Action button */}
-        <button className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-base font-bold text-white shadow-lg shadow-primary/30 transition-all hover:bg-primary-hover active:scale-[0.98]">
+        <button
+          onClick={resetClaim}
+          className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 text-base font-bold text-white shadow-lg shadow-primary/30 transition-all hover:bg-primary-hover active:scale-[0.98]"
+        >
           <span className="material-icons-round">home</span>
           Back to Home
         </button>

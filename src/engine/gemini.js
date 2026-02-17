@@ -47,18 +47,30 @@ export async function extractInvoiceData(file, signal, userApiKey) {
     signal,
   });
 
-  if (!response.ok) {
-    const err = await response.json();
-    const isQuota = response.status === 429 || err?.error === "quota_exhausted";
+  // Safely parse JSON — an empty or non-JSON body (network error, cold-start
+  // timeout, Vite proxy not running) would otherwise throw "Unexpected end of
+  // JSON input" and swallow the real cause.
+  let payload;
+  try {
+    payload = await response.json();
+  } catch {
     throw new Error(
-      isQuota
-        ? "API quota exceeded. Please wait a moment and try again, or enter your own Gemini API key below."
-        : err?.error || "Gemini API error"
+      response.ok
+        ? "Empty response from server — check that the API proxy is running."
+        : `Server error ${response.status} — check that the API proxy is running.`
     );
   }
 
-  const data = await response.json();
-  const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+  if (!response.ok) {
+    const isQuota = response.status === 429 || payload?.error === "quota_exhausted";
+    throw new Error(
+      isQuota
+        ? "API quota exceeded. Please wait a moment and try again, or enter your own Gemini API key below."
+        : payload?.error || "Gemini API error"
+    );
+  }
+
+  const rawText = payload.candidates?.[0]?.content?.parts?.[0]?.text;
 
   if (!rawText) throw new Error("Empty response from Gemini");
 

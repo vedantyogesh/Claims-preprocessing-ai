@@ -143,6 +143,10 @@ function claimReducer(state, action) {
         step: 5,
       };
 
+    case "RESET":
+      // Preserve the user's own API key across resets so they don't have to re-enter it
+      return { ...initialState, ui: { ...initialState.ui, userApiKey: state.ui.userApiKey } };
+
     case "GO_BACK": {
       // Step 4 (post-validation) goes back to step 3 (review), not step 2
       const prevStep = state.step === 4 ? 3 : Math.max(1, state.step - 1);
@@ -231,5 +235,14 @@ export function useClaim() {
     dispatch({ type: "GO_BACK" });
   }
 
-  return { state, analyseInvoice, submitClaim, editField, requestManualReview, goBack, dispatch };
+  function resetClaim() {
+    // Cancel any in-flight request before resetting
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+    dispatch({ type: "RESET" });
+  }
+
+  return { state, analyseInvoice, submitClaim, editField, requestManualReview, goBack, resetClaim, dispatch };
 }
