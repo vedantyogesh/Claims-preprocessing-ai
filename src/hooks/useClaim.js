@@ -1,5 +1,6 @@
 import { useReducer, useRef } from "react";
 import { extractInvoiceData } from "../engine/gemini";
+import { getSampleCache } from "../engine/sampleCache";
 import { runValidation } from "../engine/validation";
 import { routeClaim } from "../engine/routing";
 import { checkRateLimit, recordCall } from "../utils/rateLimiter";
@@ -177,6 +178,21 @@ export function useClaim() {
   const abortControllerRef = useRef(null);
 
   async function analyseInvoice(file) {
+    // ── Sample cache fast-path ─────────────────────────────────────────────
+    // Known sample filenames get their pre-stored real Gemini response served
+    // locally — zero API calls, zero quota cost. The loading animation still
+    // plays for ~2 s so the AI scanning UX is preserved.
+    const cached = getSampleCache(file.name);
+    if (cached) {
+      abortControllerRef.current = null; // no in-flight request to manage
+      dispatch({ type: "SET_LOADING", value: true });
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      dispatch({ type: "SET_EXTRACTION", payload: cached });
+      dispatch({ type: "ADVANCE_STEP" });
+      return;
+    }
+
+    // ── Real Gemini path ───────────────────────────────────────────────────
     // Rate limit check (bypassed in dev mode automatically)
     const { allowed, reason } = checkRateLimit();
     if (!allowed) {

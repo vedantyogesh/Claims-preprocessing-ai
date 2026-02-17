@@ -12,20 +12,19 @@ const SERVICE_ICONS = {
 export default function ClaimCreation({ state, dispatch }) {
   const userApiKey = state?.ui?.userApiKey ?? "";
   const [serviceType, setServiceType] = useState("");
-  const [amount, setAmount] = useState("");
   const [touched, setTouched] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
     setTouched(true);
-    if (!serviceType || !amount || Number(amount) <= 0) return;
+    if (!serviceType) return;
     dispatch({
       type: "SET_CLAIM_DETAILS",
-      payload: { serviceType, amount: Number(amount) },
+      payload: { serviceType },
     });
   }
 
-  const isValid = serviceType && amount && Number(amount) > 0;
+  const isValid = serviceType;
 
   return (
     <StepWrapper
@@ -97,34 +96,7 @@ export default function ClaimCreation({ state, dispatch }) {
           )}
         </div>
 
-        {/* Amount */}
-        <div>
-          <label className="mb-2 block text-sm font-semibold text-text-primary">
-            Claimed Amount <span className="text-coral">*</span>
-          </label>
-          <div className={`flex items-center rounded-xl border-2 bg-surface-light px-4 py-3 transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 ${
-            touched && (!amount || Number(amount) <= 0)
-              ? "border-red-300 bg-coral-light"
-              : "border-gray-200"
-          }`}>
-            <span className="text-lg font-bold text-text-secondary">₹</span>
-            <input
-              type="number"
-              min="1"
-              step="1"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder="0"
-              className="ml-2 flex-1 bg-transparent text-2xl font-bold text-text-primary outline-none placeholder:text-gray-300"
-            />
-          </div>
-          {touched && (!amount || Number(amount) <= 0) && (
-            <p className="mt-2 flex items-center gap-1 text-xs text-coral">
-              <span className="material-icons-round text-sm">error</span>
-              Please enter a valid amount
-            </p>
-          )}
-        </div>
+
 
         <button
           type="submit"
