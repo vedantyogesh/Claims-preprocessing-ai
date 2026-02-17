@@ -4,7 +4,7 @@ import ApiKeyInput from "../ui/ApiKeyInput";
 import { SERVICE_TYPES } from "../../constants";
 
 const SERVICE_ICONS = {
-  "Doctor Visit": "stethoscope",
+  "Doctor Visit": "medical_services",
   "Pharmacy": "medication",
   "Diagnostic / Lab": "biotech",
 };

@@ -1,4 +1,3 @@
-import { GEMINI_MODEL } from "../constants";
 import { compressImage } from "../utils/compressImage";
 
 // Compact prompt — every token in the instruction costs input quota.
@@ -50,7 +49,12 @@ export async function extractInvoiceData(file, signal, userApiKey) {
 
   if (!response.ok) {
     const err = await response.json();
-    throw new Error(err?.error || "Gemini API error");
+    const isQuota = response.status === 429 || err?.error === "quota_exhausted";
+    throw new Error(
+      isQuota
+        ? "API quota exceeded. Please wait a moment and try again, or enter your own Gemini API key below."
+        : err?.error || "Gemini API error"
+    );
   }
 
   const data = await response.json();
