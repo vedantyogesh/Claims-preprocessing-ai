@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Validation Error Screen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1973f0",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden max-w-md mx-auto bg-white dark:bg-[#101822]">
+<!-- Header -->
+<div class="sticky top-0 z-10 flex items-center bg-white dark:bg-[#101822] p-4 border-b border-[#f0f2f5] dark:border-[#222]">
+<div class="flex size-10 shrink-0 items-center justify-center cursor-pointer text-[#111418] dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</div>
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-10">Upload Invoice</h2>
+</div>
+<!-- Scrollable Content -->
+<div class="flex-1 flex flex-col p-4 gap-6">
+<!-- Error Banner -->
+<div class="flex flex-col gap-3 rounded-xl border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800 p-4">
+<div class="flex items-start gap-3">
+<div class="text-red-600 dark:text-red-400 shrink-0 mt-0.5">
+<span class="material-symbols-outlined filled">error</span>
+</div>
+<div class="flex flex-col gap-1">
+<p class="text-[#111418] dark:text-white text-sm font-bold leading-tight">Validation Failed</p>
+<p class="text-[#60728a] dark:text-gray-300 text-sm font-normal leading-normal">
+                            We’re unable to process this document. Please upload a valid printed invoice.
+                        </p>
+</div>
+</div>
+</div>
+<!-- Document Card -->
+<div class="flex flex-col gap-4">
+<p class="text-[#111418] dark:text-white text-base font-bold leading-tight px-1">Uploaded Document</p>
+<div class="flex flex-col gap-3 rounded-xl border border-[#dbdfe6] dark:border-[#2a3441] bg-white dark:bg-[#1a2330] p-4 shadow-sm">
+<!-- Image Preview -->
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg relative overflow-hidden bg-gray-100 dark:bg-gray-800" data-alt="Blurred preview of a document on a table" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC2WG7HJyrlK9KUJ1yXkh_KlgYG8DkkIUCSx6l-rp1Kl4MZ8gHBYpjMyIIafjSPczbtdD1aM_UsIurz_QhBQXEOcFUwTFUUr0lWKtsb11Xj0bkgAQElImKlztebcInn_enbHzSpGabJ8XmgQo2RHo5y1nZ4nUUYHWqdIrOsM2GahCTQL74vaOAeVhB_B4RCtpZHM5ifzXi6O1KUVN9ep6cjs2RSp7zHvhgi_5h7vtgmGdtYtGDmEzp4dsqxbsNaD1sCOnDJKPJqjvQ");'>
+<div class="absolute inset-0 bg-black/5 dark:bg-black/40"></div>
+</div>
+<!-- File Details -->
+<div class="flex items-center justify-between gap-4">
+<div class="flex flex-col gap-0.5 overflow-hidden">
+<p class="text-[#111418] dark:text-white text-sm font-bold leading-tight truncate">Invoice_Oct23.pdf</p>
+<p class="text-red-600 dark:text-red-400 text-xs font-medium leading-normal flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">cancel</span>
+                                Failed to process
+                            </p>
+</div>
+<button class="flex shrink-0 h-9 px-3 items-center justify-center gap-2 rounded-lg bg-[#f0f2f5] dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-[#111418] dark:text-white text-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+<span>Remove</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Actions Section -->
+<div class="mt-2 flex flex-col gap-3">
+<!-- Re-upload Button (Primary) -->
+<button class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl h-12 px-5 bg-primary hover:bg-primary/90 text-white text-base font-bold leading-normal tracking-[0.015em] transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="truncate">Re-upload Document</span>
+</button>
+<!-- Manual Review Link (Secondary) -->
+<button class="flex w-full cursor-pointer items-center justify-center rounded-xl h-10 px-4 bg-transparent hover:bg-gray-50 dark:hover:bg-white/5 text-primary text-sm font-bold leading-normal tracking-[0.015em] transition-colors">
+<span class="truncate">Request Manual Review</span>
+</button>
+</div>
+</div>
+<!-- Sticky Footer for Submit -->
+<div class="border-t border-[#f0f2f5] dark:border-[#222] bg-white dark:bg-[#101822] p-4 pb-8">
+<button class="flex w-full cursor-not-allowed items-center justify-center rounded-xl h-12 px-5 bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 text-base font-bold leading-normal tracking-[0.015em]" disabled="">
+<span class="truncate">Submit Invoice</span>
+</button>
+</div>
+</div>
+</body></html>

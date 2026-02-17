@@ -1,56 +1,37 @@
 import { GEMINI_MODEL } from "../constants";
+import { compressImage } from "../utils/compressImage";
 
-const EXTRACTION_PROMPT = `
-You are an invoice extraction system for a health insurance claims platform.
+// Compact prompt — every token in the instruction costs input quota.
+// Removed all prose explanations; kept only the schema and scoring rules.
+const EXTRACTION_PROMPT = `Extract health invoice data. Output ONLY a JSON object, no markdown.
 
-Analyze the uploaded document and return a JSON object with exactly this structure:
-{
-  "documentType": "invoice" | "prescription" | "receipt" | "other" | "unreadable",
-  "isHandwritten": true | false,
-  "fields": {
-    "providerName":  { "value": string | null, "confidence": number },
-    "invoiceDate":   { "value": string | null, "confidence": number },
-    "totalAmount":   { "value": number | null, "confidence": number },
-    "lineItems":     { "value": [{ "description": string, "amount": number }] | null, "confidence": number },
-    "patientName":   { "value": string | null, "confidence": number }
-  },
-  "overallNotes": string
-}
+Schema:
+{"documentType":"invoice|prescription|receipt|other|unreadable","isHandwritten":bool,"fields":{"providerName":{"value":str|null,"confidence":0-1},"invoiceDate":{"value":"YYYY-MM-DD"|null,"confidence":0-1},"totalAmount":{"value":num|null,"confidence":0-1},"lineItems":{"value":[{"description":str,"amount":num}]|null,"confidence":0-1},"patientName":{"value":str|null,"confidence":0-1}},"overallNotes":str}
 
-Confidence scoring rules (0.0 – 1.0):
-- 1.0:   Field clearly visible, completely unambiguous
-- 0.8–0.99: Field present, very minor uncertainty
-- 0.5–0.79: Field present but unclear, partially readable, or uncertain
-- 0.0–0.49: Field missing, illegible, or highly uncertain
+Confidence: 1.0=unambiguous, 0.8-0.99=minor uncertainty, 0.5-0.79=partial/unclear, 0.0-0.49=missing/illegible.
+Rules: non-invoice/receipt→lower all confidences. Unreadable→documentType="unreadable",all confidence=0. Lump-sum only (no itemised breakdown)→lineItems.confidence<0.5. invoiceDate must be ISO 8601.`;
 
-Additional rules:
-- If document is not an invoice or receipt, set documentType accordingly and reduce all confidences
-- If image is completely unreadable, set documentType to "unreadable" and all confidences to 0
-- lineItems confidence must be low (< 0.5) if only a lump-sum total is present with no breakdown
-- Return ONLY valid JSON. No markdown, no backticks, no explanation text.
-`;
-
-export async function extractInvoiceData(base64Image, mimeType) {
+export async function extractInvoiceData(file) {
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`;
+
+  // Compress/resize before encoding — biggest single lever for token reduction.
+  // A typical phone photo (~3MB) shrinks to ~80KB, cutting image tokens by ~95%.
+  const { base64, mimeType } = await compressImage(file);
 
   const body = {
     contents: [
       {
         parts: [
           { text: EXTRACTION_PROMPT },
-          {
-            inline_data: {
-              mime_type: mimeType,
-              data: base64Image,
-            },
-          },
+          { inline_data: { mime_type: mimeType, data: base64 } },
         ],
       },
     ],
     generationConfig: {
-      temperature: 0.1,
-      maxOutputTokens: 1024,
+      temperature: 0.1,       // deterministic extraction
+      maxOutputTokens: 512,   // longest valid response is ~350 tokens; was 1024
+      candidateCount: 1,      // never generate alternatives
     },
   };
 
@@ -70,8 +51,8 @@ export async function extractInvoiceData(base64Image, mimeType) {
 
   if (!rawText) throw new Error("Empty response from Gemini");
 
-  // Strip markdown code fences if Gemini ignores the instruction
-  const cleaned = rawText.replace(/```json|```/g, "").trim();
+  // Strip any code fences the model may add despite instruction
+  const cleaned = rawText.replace(/```(?:json)?|```/g, "").trim();
 
   try {
     return JSON.parse(cleaned);

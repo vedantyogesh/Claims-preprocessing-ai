@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Review and Confirm Extraction</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#2563EB", // Blue similar to the screenshot button
+                        "background-light": "#F3F4F6", // Light grey background
+                        "background-dark": "#111827", // Dark gray background
+                        "card-light": "#FFFFFF",
+                        "card-dark": "#1F2937",
+                        "text-light": "#111827",
+                        "text-dark": "#F9FAFB",
+                        "input-bg-light": "#FFFFFF",
+                        "input-bg-dark": "#374151",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        'xl': '0.75rem',
+                        '2xl': '1rem',
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark antialiased h-screen flex flex-col overflow-hidden">
+<header class="bg-card-light dark:bg-card-dark px-4 pt-4 pb-2 shadow-sm z-10 shrink-0">
+<div class="flex items-center justify-between mb-4">
+<h1 class="text-xl font-bold">New Reimbursement</h1>
+<button class="p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined text-gray-600 dark:text-gray-300">close</span>
+</button>
+</div>
+<div class="flex gap-2 mb-2">
+<div class="h-1.5 flex-1 bg-gray-600 rounded-full"></div>
+<div class="h-1.5 flex-1 bg-gray-600 rounded-full"></div>
+<div class="h-1.5 flex-1 bg-gray-600 rounded-full"></div>
+</div>
+<p class="text-sm font-medium text-gray-600 dark:text-gray-400">Step 3 of 3: Review &amp; Confirm</p>
+</header>
+<main class="flex-1 overflow-y-auto px-4 py-6 space-y-6">
+<section>
+<h2 class="text-lg font-bold mb-3 text-gray-800 dark:text-white">Document Preview</h2>
+<div class="relative w-full h-64 bg-gray-300 dark:bg-gray-700 rounded-2xl flex items-center justify-center overflow-hidden border border-gray-200 dark:border-gray-600">
+<div class="w-3/5 h-5/6 bg-white dark:bg-gray-800 shadow-md p-4 flex flex-col gap-2 opacity-90 transform scale-95">
+<div class="flex justify-between items-start mb-2">
+<div class="w-8 h-8 bg-gray-200 dark:bg-gray-600 rounded"></div>
+<div class="w-16 h-4 bg-gray-200 dark:bg-gray-600 rounded"></div>
+</div>
+<div class="w-full h-px bg-gray-200 dark:bg-gray-600 my-1"></div>
+<div class="space-y-2">
+<div class="w-full h-2 bg-gray-100 dark:bg-gray-700 rounded"></div>
+<div class="w-3/4 h-2 bg-gray-100 dark:bg-gray-700 rounded"></div>
+<div class="w-1/2 h-2 bg-gray-100 dark:bg-gray-700 rounded"></div>
+</div>
+<div class="mt-auto w-full h-16 bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-700"></div>
+</div>
+<div class="absolute inset-0 bg-black/10 flex items-center justify-center">
+<button class="bg-white dark:bg-gray-800 text-primary font-semibold px-4 py-2 rounded-lg shadow-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-2">
+                        View Full
+                    </button>
+</div>
+</div>
+</section>
+<section class="space-y-4">
+<h2 class="text-lg font-bold text-gray-800 dark:text-white">AI Extracted Details</h2>
+<div class="relative bg-card-light dark:bg-input-bg-dark rounded-xl shadow-sm border border-gray-200 dark:border-gray-600 pt-5 pb-2 px-3">
+<label class="absolute top-2 left-3 text-xs font-medium text-gray-500 dark:text-gray-400 bg-card-light dark:bg-input-bg-dark px-1 rounded">
+                    Provider Name
+                </label>
+<div class="flex justify-between items-center">
+<span class="text-base font-medium text-gray-900 dark:text-white">Apollo Clinic</span>
+<button class="text-primary hover:text-blue-700 transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+</div>
+</div>
+<div class="relative bg-card-light dark:bg-input-bg-dark rounded-xl shadow-sm border border-gray-200 dark:border-gray-600 pt-5 pb-2 px-3">
+<label class="absolute top-2 left-3 text-xs font-medium text-gray-500 dark:text-gray-400 bg-card-light dark:bg-input-bg-dark px-1 rounded">
+                    Service Date
+                </label>
+<div class="flex justify-between items-center">
+<span class="text-base font-medium text-gray-900 dark:text-white">12/10/2023</span>
+<button class="text-primary hover:text-blue-700 transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+</div>
+</div>
+<div class="relative bg-card-light dark:bg-input-bg-dark rounded-xl shadow-sm border border-gray-200 dark:border-gray-600 pt-5 pb-2 px-3">
+<label class="absolute top-2 left-3 text-xs font-medium text-gray-500 dark:text-gray-400 bg-card-light dark:bg-input-bg-dark px-1 rounded">
+                    Total Amount
+                </label>
+<div class="flex justify-between items-center">
+<span class="text-base font-medium text-gray-900 dark:text-white">₹ 850</span>
+<button class="text-primary hover:text-blue-700 transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+</div>
+</div>
+</section>
+<section class="space-y-4">
+<h2 class="text-lg font-bold text-gray-800 dark:text-white">Extracted Line Items</h2>
+<div class="space-y-3">
+<div class="bg-card-light dark:bg-input-bg-dark rounded-xl shadow-sm border border-gray-200 dark:border-gray-600 p-4">
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-sm font-medium text-gray-500 dark:text-gray-400">1. Item Name</span>
+<span class="text-base font-medium text-gray-900 dark:text-white">Consultation Fee</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex flex-col items-end">
+<span class="text-sm font-medium text-gray-500 dark:text-gray-400">Cost</span>
+<span class="text-base font-semibold text-gray-900 dark:text-white">₹ 500</span>
+</div>
+<button class="text-primary hover:text-blue-700 transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-card-light dark:bg-input-bg-dark rounded-xl shadow-sm border border-gray-200 dark:border-gray-600 p-4">
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-sm font-medium text-gray-500 dark:text-gray-400">2. Item Name</span>
+<span class="text-base font-medium text-gray-900 dark:text-white">X-Ray</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex flex-col items-end">
+<span class="text-sm font-medium text-gray-500 dark:text-gray-400">Cost</span>
+<span class="text-base font-semibold text-gray-900 dark:text-white">₹ 350</span>
+</div>
+<button class="text-primary hover:text-blue-700 transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="text-sm text-gray-500 dark:text-gray-400 leading-snug px-1">
+            Check these details against your invoice. Editing may delay processing.
+        </div>
+<div class="h-20"></div>
+</main>
+<footer class="bg-card-light dark:bg-card-dark px-4 py-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] dark:shadow-[0_-4px_6px_-1px_rgba(255,255,255,0.05)] shrink-0 z-20 pb-8">
+<div class="flex flex-col items-center gap-4">
+<button class="text-primary font-medium text-sm hover:underline">
+                Request Manual Review
+            </button>
+<button class="w-full bg-primary text-white font-semibold py-3.5 rounded-full shadow-md hover:bg-blue-700 transition-colors text-lg active:scale-[0.98] transform transition-transform">
+                Review Submission
+            </button>
+</div>
+</footer>
+
+</body></html>

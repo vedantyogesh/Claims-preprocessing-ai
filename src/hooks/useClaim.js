@@ -2,7 +2,7 @@ import { useReducer } from "react";
 import { extractInvoiceData } from "../engine/gemini";
 import { runValidation } from "../engine/validation";
 import { routeClaim } from "../engine/routing";
-import { fileToBase64 } from "../utils/fileToBase64";
+
 import { generateClaimRef } from "../utils/generateClaimRef";
 
 const initialState = {
@@ -170,8 +170,8 @@ export function useClaim() {
   async function analyseInvoice(file) {
     dispatch({ type: "SET_LOADING", value: true });
     try {
-      const base64 = await fileToBase64(file);
-      const result = await extractInvoiceData(base64, file.type);
+      
+      const result = await extractInvoiceData(file);
       dispatch({ type: "SET_EXTRACTION", payload: result });
       dispatch({ type: "ADVANCE_STEP" });
     } catch (err) {

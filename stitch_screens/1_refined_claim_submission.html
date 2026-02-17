@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>New Reimbursement Claim</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#0EA5E9", // Sky blue brand color
+                        "background-light": "#F3F4F6", // Light grey background
+                        "background-dark": "#111827", // Dark gray/black background
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1F2937",
+                        "accent-red-light": "#FEE2E2",
+                        "accent-red-dark": "#7F1D1D",
+                        "text-primary-light": "#111827",
+                        "text-primary-dark": "#F9FAFB",
+                        "text-secondary-light": "#6B7280",
+                        "text-secondary-dark": "#9CA3AF",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.75rem",
+                        'xl': "1rem",
+                        '2xl': "1.5rem",
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                },
+            },
+        };
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-primary-light dark:text-text-primary-dark antialiased min-h-screen flex flex-col transition-colors duration-200">
+<header class="sticky top-0 z-10 bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex items-center justify-between">
+<h1 class="text-xl font-bold tracking-tight">New Reimbursement</h1>
+<button class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors rounded-full p-1 hover:bg-gray-100 dark:hover:bg-gray-700">
+<span class="material-icons-round text-2xl">close</span>
+</button>
+</header>
+<div class="px-6 pt-6 pb-2">
+<div class="flex gap-2 mb-2">
+<div class="h-1.5 flex-1 bg-primary rounded-full"></div>
+<div class="h-1.5 flex-1 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+<div class="h-1.5 flex-1 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+</div>
+<p class="text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark">Step 1 of 3: Claim Details</p>
+</div>
+<main class="flex-1 px-6 pb-32 space-y-8 overflow-y-auto">
+<section class="bg-[#EBF5FF] dark:bg-blue-900/20 rounded-xl p-5 border border-blue-100 dark:border-blue-800">
+<h2 class="font-semibold text-lg leading-tight mb-3">
+                Please upload all your <span class="border-b-2 border-primary/50">medical bills and docs</span> to claim your reimbursement.
+            </h2>
+<ul class="space-y-2 text-sm text-text-secondary-light dark:text-text-secondary-dark">
+<li class="flex items-start gap-2">
+<span class="mt-1.5 w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0"></span>
+<span>Upload clear, printed invoices for Fast Track processing.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="mt-1.5 w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0"></span>
+<span>Handwritten bills will not be accepted.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="mt-1.5 w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0"></span>
+<span>Consultation papers must include diagnosis &amp; symptoms.</span>
+</li>
+</ul>
+</section>
+<section class="space-y-4">
+<div class="bg-red-50 dark:bg-red-900/10 rounded-2xl p-4 border border-red-100 dark:border-red-900/30 shadow-sm">
+<div class="flex items-start justify-between mb-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-white dark:bg-red-900/40 flex items-center justify-center text-red-500 shadow-sm border border-red-100 dark:border-red-800">
+<span class="material-icons-round">receipt_long</span>
+</div>
+<div>
+<h3 class="font-bold text-gray-900 dark:text-gray-100">INVOICE <span class="text-red-500 text-xs font-normal ml-1">*Required*</span></h3>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                Pending
+                            </span>
+</div>
+</div>
+<button class="bg-primary hover:bg-sky-600 text-white text-sm font-semibold px-5 py-2 rounded-full transition-colors shadow-sm active:scale-95 transform duration-100">
+                        Upload
+                    </button>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-xl p-3 border border-red-100 dark:border-gray-700/50">
+<p class="text-sm text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
+                        Please upload the invoice here. Ensure it is clear and printed.
+                    </p>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl p-4 border border-gray-200 dark:border-gray-700 shadow-sm">
+<div class="flex items-start gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary shadow-sm">
+<span class="material-icons-round">medical_services</span>
+</div>
+<div class="flex-1">
+<h3 class="font-bold text-gray-900 dark:text-gray-100">Nephrology Consultation</h3>
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark mt-0.5">Upload if applicable</p>
+</div>
+</div>
+<div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-3 flex items-center justify-between border border-gray-100 dark:border-gray-700">
+<div class="flex flex-col">
+<span class="font-semibold text-sm text-gray-800 dark:text-gray-200">PRESCRIPTION</span>
+<span class="inline-flex mt-1 self-start items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+                            Optional
+                        </span>
+</div>
+<button class="bg-primary hover:bg-sky-600 text-white text-sm font-semibold px-5 py-2 rounded-full transition-colors shadow-sm active:scale-95 transform duration-100">
+                        Upload
+                    </button>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl p-4 border border-gray-200 dark:border-gray-700 shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-600">
+<span class="material-icons-round">description</span>
+</div>
+<div>
+<h3 class="font-bold text-gray-900 dark:text-gray-100">OTHERS</h3>
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark mt-0.5 w-40 truncate">Any other relevant documents</p>
+</div>
+</div>
+<button class="bg-primary hover:bg-sky-600 text-white text-sm font-semibold px-5 py-2 rounded-full transition-colors shadow-sm active:scale-95 transform duration-100">
+                        Upload
+                    </button>
+</div>
+</div>
+</section>
+<div class="text-center pb-6">
+<button class="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 font-semibold text-sm transition-colors">
+                Cancel reimbursement
+            </button>
+</div>
+</main>
+<div class="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-white via-white to-transparent dark:from-background-dark dark:via-background-dark dark:to-transparent pointer-events-none pb-8 pt-12">
+<button class="w-full pointer-events-auto bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 font-bold py-4 rounded-2xl shadow-none cursor-not-allowed transition-all" disabled="">
+            Scan &amp; Review
+        </button>
+</div>
+</body></html>

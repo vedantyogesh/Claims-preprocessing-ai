@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fast Track Submission Success</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3B82F6", // Blue similar to the screenshot's accents
+                        "background-light": "#F3F4F6", // Light gray background
+                        "background-dark": "#111827", // Dark mode background
+                        "card-light": "#FFFFFF",
+                        "card-dark": "#1F2937",
+                        "text-light": "#1F2937",
+                        "text-dark": "#F9FAFB",
+                        "subtext-light": "#6B7280",
+                        "subtext-dark": "#9CA3AF",
+                        "success": "#10B981", // Green for checkmark
+                        "fast-track-bg": "#FEF3C7", // Light yellow/gold for Fast Track
+                        "fast-track-text": "#D97706", // Darker gold for text
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        "xl": "1rem",
+                        "2xl": "1.5rem",
+                        "3xl": "2rem",
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark min-h-screen flex items-center justify-center p-4 antialiased selection:bg-primary selection:text-white">
+<div class="w-full max-w-md bg-card-light dark:bg-card-dark rounded-3xl shadow-xl overflow-hidden relative flex flex-col min-h-[800px]">
+<div class="h-12 w-full flex items-center justify-between px-6 pt-2">
+<span class="text-xs font-semibold dark:text-gray-400">9:41</span>
+<div class="flex space-x-1">
+<span class="material-icons-round text-sm dark:text-gray-400">signal_cellular_alt</span>
+<span class="material-icons-round text-sm dark:text-gray-400">wifi</span>
+<span class="material-icons-round text-sm dark:text-gray-400">battery_full</span>
+</div>
+</div>
+<main class="flex-1 flex flex-col items-center px-6 pt-8 pb-12 text-center">
+<div class="mb-8 relative">
+<div class="w-24 h-24 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center animate-bounce-slight">
+<span class="material-icons-round text-success text-6xl">check_circle</span>
+</div>
+<div class="absolute top-0 right-0 w-3 h-3 bg-blue-400 rounded-full opacity-50 animate-pulse"></div>
+<div class="absolute bottom-2 left-0 w-2 h-2 bg-yellow-400 rounded-full opacity-50"></div>
+</div>
+<h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Claim Submitted Successfully!</h1>
+<p class="text-subtext-light dark:text-subtext-dark mb-8 text-sm">Your reimbursement request has been securely received.</p>
+<div class="w-full bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-2xl p-5 mb-6 text-left relative overflow-hidden">
+<div class="absolute -right-6 -top-6 w-24 h-24 bg-blue-100 dark:bg-blue-800 rounded-full opacity-50 blur-xl"></div>
+<div class="flex items-center justify-between mb-3 relative z-10">
+<span class="text-sm font-semibold text-gray-700 dark:text-gray-200">Estimated Resolution</span>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-yellow-200 to-yellow-100 text-yellow-800 dark:from-yellow-900 dark:to-yellow-800 dark:text-yellow-200 border border-yellow-200 dark:border-yellow-700 shadow-sm">
+<span class="material-icons-round text-[10px] mr-1">bolt</span>
+                        Fast Track
+                    </span>
+</div>
+<div class="flex items-baseline space-x-2 relative z-10">
+<span class="text-2xl font-bold text-primary">48 Hours</span>
+</div>
+<p class="text-xs text-subtext-light dark:text-blue-200 mt-1 relative z-10">
+                    Priority processing enabled for your premium plan.
+                </p>
+</div>
+<div class="flex flex-col items-center mb-8 w-full">
+<span class="text-xs uppercase tracking-wider text-subtext-light dark:text-subtext-dark mb-1">Claim Reference Number</span>
+<div class="flex items-center space-x-2 bg-gray-50 dark:bg-gray-800 px-4 py-2 rounded-lg border border-gray-100 dark:border-gray-700">
+<span class="font-mono text-lg font-medium text-gray-800 dark:text-gray-200">#CLM-98234</span>
+<button class="text-primary hover:text-blue-600 transition-colors">
+<span class="material-icons-round text-sm">content_copy</span>
+</button>
+</div>
+</div>
+<div class="w-full text-left mb-8">
+<h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+<span class="material-icons-round text-primary text-lg mr-2">help_outline</span>
+                    What happens next?
+                </h3>
+<div class="relative pl-4 space-y-6 border-l-2 border-gray-100 dark:border-gray-700 ml-2">
+<div class="relative">
+<div class="absolute -left-[21px] top-0 h-4 w-4 rounded-full bg-green-500 border-2 border-white dark:border-card-dark"></div>
+<h4 class="text-sm font-medium text-gray-900 dark:text-white leading-none mb-1">Submission Received</h4>
+<p class="text-xs text-subtext-light dark:text-subtext-dark">We have received your documents.</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[21px] top-0 h-4 w-4 rounded-full bg-blue-100 dark:bg-blue-900 border-2 border-primary dark:border-blue-500 animate-pulse"></div>
+<h4 class="text-sm font-medium text-gray-900 dark:text-white leading-none mb-1">Expert Review</h4>
+<p class="text-xs text-subtext-light dark:text-subtext-dark">Our medical team is verifying the details.</p>
+</div>
+<div class="relative opacity-50">
+<div class="absolute -left-[21px] top-0 h-4 w-4 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-white dark:border-card-dark"></div>
+<h4 class="text-sm font-medium text-gray-900 dark:text-white leading-none mb-1">Approval &amp; Transfer</h4>
+<p class="text-xs text-subtext-light dark:text-subtext-dark">Funds will be transferred to your account.</p>
+</div>
+</div>
+</div>
+<div class="mt-auto w-full space-y-4">
+<button class="w-full bg-primary hover:bg-blue-600 text-white font-semibold py-4 px-6 rounded-xl shadow-lg shadow-blue-500/30 transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center">
+<span>View Claim Status</span>
+<span class="material-icons-round ml-2 text-sm">arrow_forward</span>
+</button>
+<a class="block text-sm font-medium text-subtext-light dark:text-subtext-dark hover:text-primary dark:hover:text-white transition-colors py-2" href="#">
+                    Back to Home
+                </a>
+</div>
+</main>
+<div class="h-16 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 flex items-center justify-around px-2 pb-2">
+<div class="flex flex-col items-center justify-center w-16 text-gray-400 dark:text-gray-500">
+<span class="material-icons-round text-2xl">home</span>
+<span class="text-[10px] mt-1">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center w-16 text-primary">
+<span class="material-icons-round text-2xl">receipt_long</span>
+<span class="text-[10px] mt-1 font-medium">Claims</span>
+</div>
+<div class="flex flex-col items-center justify-center w-16 text-gray-400 dark:text-gray-500">
+<span class="material-icons-round text-2xl">medical_services</span>
+<span class="text-[10px] mt-1">Support</span>
+</div>
+</div>
+</div>
+<style>@keyframes bounce-slight {
+            0%, 100% {
+                transform: translateY(-5%);
+                animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+            }
+            50% {
+                transform: translateY(0);
+                animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+            }
+        }
+        .animate-bounce-slight {
+            animation: bounce-slight 2s infinite;
+        }
+    </style>
+
+</body></html>
