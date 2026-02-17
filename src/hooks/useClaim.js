@@ -10,7 +10,6 @@ const initialState = {
   step: 1, // 1–5
   claim: {
     serviceType: "",
-    amount: null,
     uploadedFile: null,
     filePreview: null,
   },

@@ -37,16 +37,6 @@ export function runValidation(extraction, claim) {
     }
   }
 
-  if (
-    fields.totalAmount.value !== null &&
-    claim.amount &&
-    Math.abs(fields.totalAmount.value - Number(claim.amount)) > 1
-  ) {
-    warnings.push(
-      `Claimed amount (₹${claim.amount}) differs from invoice total (₹${fields.totalAmount.value}).`
-    );
-  }
-
   return {
     passed: errors.length === 0,
     errors,

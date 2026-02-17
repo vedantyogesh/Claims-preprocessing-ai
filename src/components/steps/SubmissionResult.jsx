@@ -139,7 +139,7 @@ export default function SubmissionResult({ state, resetClaim }) {
 
           <div className="space-y-3">
             <SummaryRow label="Service" value={claim.serviceType} />
-            <SummaryRow label="Claimed Amount" value={formatCurrency(claim.amount)} />
+            <SummaryRow label="Total Amount" value={formatCurrency(fields.totalAmount.value)} />
             {fields.providerName.value && (
               <SummaryRow label="Provider" value={fields.providerName.value} />
             )}
