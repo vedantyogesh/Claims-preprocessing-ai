@@ -1,8 +1,8 @@
-import { useReducer } from "react";
+import { useReducer, useRef } from "react";
 import { extractInvoiceData } from "../engine/gemini";
 import { runValidation } from "../engine/validation";
 import { routeClaim } from "../engine/routing";
-
+import { checkRateLimit, recordCall } from "../utils/rateLimiter";
 import { generateClaimRef } from "../utils/generateClaimRef";
 
 const initialState = {
@@ -44,6 +44,7 @@ const initialState = {
   ui: {
     isLoading: false,
     error: null,
+    userApiKey: "",
   },
 };
 
@@ -80,6 +81,9 @@ function claimReducer(state, action) {
 
     case "SET_ERROR":
       return { ...state, ui: { ...state.ui, isLoading: false, error: action.message } };
+
+    case "SET_USER_API_KEY":
+      return { ...state, ui: { ...state.ui, userApiKey: action.key } };
 
     case "EDIT_FIELD":
       return {
@@ -166,15 +170,36 @@ function claimReducer(state, action) {
 
 export function useClaim() {
   const [state, dispatch] = useReducer(claimReducer, initialState);
+  const abortControllerRef = useRef(null);
 
   async function analyseInvoice(file) {
+    // Rate limit check (bypassed in dev mode automatically)
+    const { allowed, reason } = checkRateLimit();
+    if (!allowed) {
+      dispatch({ type: "SET_ERROR", message: reason });
+      return;
+    }
+
+    // Cancel any in-flight request before starting a new one
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    abortControllerRef.current = new AbortController();
+
+    // Record call before the await so concurrent triggers are also blocked
+    recordCall();
     dispatch({ type: "SET_LOADING", value: true });
+
     try {
-      
-      const result = await extractInvoiceData(file);
+      const result = await extractInvoiceData(
+        file,
+        abortControllerRef.current.signal,
+        state.ui.userApiKey
+      );
       dispatch({ type: "SET_EXTRACTION", payload: result });
       dispatch({ type: "ADVANCE_STEP" });
     } catch (err) {
+      if (err.name === "AbortError") return; // silently swallow cancelled requests
       dispatch({ type: "SET_ERROR", message: err.message });
     }
   }

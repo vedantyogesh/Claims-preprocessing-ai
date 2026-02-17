@@ -11,10 +11,10 @@ Schema:
 Confidence: 1.0=unambiguous, 0.8-0.99=minor uncertainty, 0.5-0.79=partial/unclear, 0.0-0.49=missing/illegible.
 Rules: non-invoice/receipt→lower all confidences. Unreadable→documentType="unreadable",all confidence=0. Lump-sum only (no itemised breakdown)→lineItems.confidence<0.5. invoiceDate must be ISO 8601.`;
 
-export async function extractInvoiceData(file) {
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`;
-
+// signal: AbortController signal to cancel in-flight requests on re-upload
+// userApiKey: BYOK key from the UI — sent as a header so the proxy uses it instead
+//             of the server-side operator key. If empty, the proxy falls back.
+export async function extractInvoiceData(file, signal, userApiKey) {
   // Compress/resize before encoding — biggest single lever for token reduction.
   // A typical phone photo (~3MB) shrinks to ~80KB, cutting image tokens by ~95%.
   const { base64, mimeType } = await compressImage(file);
@@ -30,20 +30,27 @@ export async function extractInvoiceData(file) {
     ],
     generationConfig: {
       temperature: 0.1,       // deterministic extraction
-      maxOutputTokens: 512,   // longest valid response is ~350 tokens; was 1024
+      maxOutputTokens: 512,   // longest valid response is ~350 tokens
       candidateCount: 1,      // never generate alternatives
     },
   };
 
-  const response = await fetch(url, {
+  const headers = { "Content-Type": "application/json" };
+  if (userApiKey && userApiKey.trim()) {
+    headers["x-gemini-key"] = userApiKey.trim();
+  }
+
+  // POST to our own Vercel proxy — the actual Gemini key never touches the browser.
+  const response = await fetch("/api/analyse", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers,
     body: JSON.stringify(body),
+    signal,
   });
 
   if (!response.ok) {
     const err = await response.json();
-    throw new Error(err?.error?.message || "Gemini API error");
+    throw new Error(err?.error || "Gemini API error");
   }
 
   const data = await response.json();
