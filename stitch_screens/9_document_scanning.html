@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Document Scanning State</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1973f0",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display bg-background-light dark:bg-background-dark min-h-screen flex items-center justify-center p-0 m-0 overflow-hidden">
+<!-- Main Container representing iPhone screen -->
+<div class="relative flex h-full min-h-screen w-full max-w-md flex-col bg-background-light dark:bg-background-dark overflow-hidden shadow-2xl mx-auto">
+<!-- Top Bar with Back Button and Title -->
+<div class="flex items-center p-4 pt-12 pb-2 justify-between bg-white dark:bg-[#1a222d] z-20">
+<div class="text-[#111418] dark:text-white flex size-12 shrink-0 items-center justify-start cursor-pointer transition-opacity hover:opacity-70">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</div>
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">New Claim</h2>
+</div>
+<!-- Progress Steps -->
+<div class="flex flex-col items-center justify-center pt-6 pb-4 bg-white dark:bg-[#1a222d] z-20 border-b border-gray-100 dark:border-gray-800">
+<div class="flex w-full flex-row items-center justify-center gap-2 mb-2">
+<!-- Step 1 (Completed) -->
+<div class="h-1.5 w-12 rounded-full bg-primary opacity-40"></div>
+<!-- Step 2 (Active) -->
+<div class="h-1.5 w-12 rounded-full bg-primary"></div>
+<!-- Step 3 (Pending) -->
+<div class="h-1.5 w-12 rounded-full bg-[#dbdfe6] dark:bg-gray-600"></div>
+</div>
+<p class="text-sm font-medium text-primary dark:text-blue-400">Step 2 of 3: Scanning Document</p>
+</div>
+<!-- Main Content Area with Dark Overlay Effect -->
+<div class="flex-1 relative flex flex-col items-center justify-start pt-8 px-6 bg-white dark:bg-background-dark">
+<!-- Text Content -->
+<div class="z-10 w-full text-center mb-8">
+<h2 class="text-[#111418] dark:text-white tracking-tight text-2xl font-bold leading-tight pb-3">
+                    Analyzing your invoice...
+                </h2>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-relaxed max-w-[280px] mx-auto">
+                    We're extracting key details. This will just take a moment.
+                </p>
+</div>
+<!-- Scanning Area / Document Preview -->
+<div class="relative w-full max-w-[320px] aspect-[3/4] rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 group">
+<!-- The Document Image -->
+<div class="absolute inset-0 bg-cover bg-top opacity-60 dark:opacity-50 blur-[1px]" data-alt="Blurred invoice document showing header and line items" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBPxOhnyokerDvaK99gXEcD8nxqoSHj7daO698QBDZR1YpsOf7OTAZoB2tNwKzuttYPdXwgMJiCgi8ANyHl_aX9TaLWiJ50PebAeVZv8Q0R3DMAXndZBLJsoSgzFaEw-UBPlY0wVO4v_oSLp8_LTNPzbIFvPgFW1acTOebOO9ySD0bUr8HNiJIP9hVTZmh5ny_fkLKILlSz8asN0pewwJ909EVa63tYHRtEhyvsX3y28hnKNm4tKwT2Qt9ZsKq9pEgv6-JJEihs4Mg');">
+</div>
+<!-- Overlay to darken document slightly for contrast with laser -->
+<div class="absolute inset-0 bg-black/10"></div>
+<!-- The "Laser" Scan Line -->
+<!-- Note: CSS animations are forbidden by rules, so this is a static representation of the scan in progress -->
+<div class="absolute top-1/2 left-0 w-full h-0.5 bg-primary shadow-[0_0_15px_3px_rgba(25,115,240,0.6)] z-10 flex items-center justify-center">
+<!-- Glow effect spreading from the line -->
+<div class="w-full h-16 bg-gradient-to-b from-primary/0 via-primary/20 to-primary/0 absolute -top-8"></div>
+</div>
+<!-- Simulated 'Scanning' Grid/Corner Indicators to make it look techy -->
+<div class="absolute top-4 left-4 w-8 h-8 border-l-4 border-t-4 border-primary rounded-tl-lg"></div>
+<div class="absolute top-4 right-4 w-8 h-8 border-r-4 border-t-4 border-primary rounded-tr-lg"></div>
+<div class="absolute bottom-4 left-4 w-8 h-8 border-l-4 border-b-4 border-primary rounded-bl-lg"></div>
+<div class="absolute bottom-4 right-4 w-8 h-8 border-r-4 border-b-4 border-primary rounded-br-lg"></div>
+<!-- Processing Chip on top of document -->
+<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full flex items-center gap-2 border border-white/10">
+<span class="material-symbols-outlined text-white text-sm animate-spin-slow">sync</span>
+<span class="text-xs font-medium text-white">Processing...</span>
+</div>
+</div>
+<!-- Cancel Button -->
+<div class="mt-auto pb-10 w-full flex justify-center">
+<button class="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 font-semibold text-base py-3 px-6 rounded-lg transition-colors focus:bg-red-50 dark:focus:bg-red-900/20">
+                    Cancel Scan
+                </button>
+</div>
+</div>
+</div>
+</body></html>

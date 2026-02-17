@@ -10,9 +10,9 @@ export default function App() {
   const { step } = claim.state;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background-light font-display text-text-primary antialiased">
       <Header step={step} onBack={claim.goBack} />
-      <main className="mx-auto max-w-2xl px-4 py-8">
+      <main className="mx-auto max-w-md px-4 py-6 md:max-w-2xl md:px-6 md:py-8">
         {step === 1 && <ClaimCreation {...claim} />}
         {step === 2 && <InvoiceUpload {...claim} />}
         {(step === 3 || step === 4) && <FieldConfirmation {...claim} />}

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Standard Track Claim Validation</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1973f0",
+                        "primary-content": "#ffffff",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1c2632",
+                        "text-main-light": "#111418",
+                        "text-main-dark": "#f3f4f6",
+                        "text-sub-light": "#60728a",
+                        "text-sub-dark": "#9ca3af",
+                        "border-light": "#e5e7eb",
+                        "border-dark": "#374151",
+                        "warning-bg": "#fffbeb",
+                        "warning-text": "#92400e",
+                        "warning-border": "#fcd34d",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display min-h-screen flex flex-col items-center justify-center antialiased text-text-main-light dark:text-text-main-dark">
+<div class="w-full max-w-md h-full min-h-screen bg-surface-light dark:bg-surface-dark flex flex-col relative shadow-xl overflow-hidden">
+<!-- Header -->
+<header class="flex items-center px-4 pt-12 pb-2 bg-surface-light dark:bg-surface-dark sticky top-0 z-10 border-b border-border-light dark:border-border-dark">
+<button class="flex items-center justify-center p-2 -ml-2 rounded-full hover:bg-background-light dark:hover:bg-background-dark transition-colors">
+<span class="material-symbols-outlined text-text-main-light dark:text-text-main-dark">arrow_back</span>
+</button>
+<h1 class="flex-1 text-center text-lg font-bold">Claim Validation</h1>
+<button class="flex items-center justify-center p-2 -mr-2 rounded-full hover:bg-background-light dark:hover:bg-background-dark transition-colors opacity-0 pointer-events-none">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</header>
+<!-- Progress Indicator -->
+<div class="px-6 py-4 bg-surface-light dark:bg-surface-dark">
+<div class="flex items-center justify-center gap-2">
+<div class="h-1.5 w-8 rounded-full bg-primary/30"></div>
+<div class="h-1.5 w-8 rounded-full bg-primary"></div>
+<div class="h-1.5 w-8 rounded-full bg-primary/30 dark:bg-primary/20"></div>
+<div class="h-1.5 w-8 rounded-full bg-primary/30 dark:bg-primary/20"></div>
+</div>
+<p class="text-xs text-center text-text-sub-light dark:text-text-sub-dark mt-2 font-medium">Step 2 of 4: Review Details</p>
+</div>
+<!-- Scrollable Content -->
+<main class="flex-1 overflow-y-auto pb-32">
+<!-- Warning Banner -->
+<div class="px-4 py-2">
+<div class="bg-warning-bg dark:bg-yellow-900/20 border border-warning-border dark:border-yellow-700/50 rounded-lg p-4 flex gap-3 items-start">
+<span class="material-symbols-outlined text-warning-text dark:text-yellow-500 shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">warning</span>
+<div class="flex flex-col gap-1">
+<h3 class="text-sm font-bold text-warning-text dark:text-yellow-500">Some details are unclear</h3>
+<p class="text-sm text-yellow-800 dark:text-yellow-200/80 leading-relaxed">
+                            You can continue, but this may take longer to process (Standard Track).
+                        </p>
+</div>
+</div>
+</div>
+<div class="px-4 pt-4 pb-2">
+<h2 class="text-xl font-bold mb-1">We found a match</h2>
+<p class="text-text-sub-light dark:text-text-sub-dark text-sm">Review the captured details below.</p>
+</div>
+<!-- Document Preview Card -->
+<div class="px-4 py-2">
+<div class="bg-background-light dark:bg-background-dark rounded-xl p-4 border border-border-light dark:border-border-dark flex gap-4 items-center">
+<div class="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 border border-border-light dark:border-border-dark bg-gray-200 dark:bg-gray-700 group cursor-pointer">
+<!-- Abstract receipt thumbnail -->
+<div class="absolute inset-0 bg-cover bg-center opacity-80" data-alt="receipt document thumbnail" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBolkXrSC-DRSPEaPl2eZdDJa6QrhdVVppvClnOZKDNGoCGlkZIB4O_McYCA-TdXmLLclt_KPx9ZY59LrXOeBrdAJR0yUM-RiYKcoJ2XWSc694jQYkUbssQENo2NwpB8OMQ3rLwwGw9hI73ecNfgTA_ei1dJYIa2mkglOx3hUZxbkvUr5hQ1Dg7Bm2K9PG5Dk9bjOXC02rF67uMbdwtYdiOWHgNbcbpWeVfb5zyDCP_SAIAoJylIYnozzW1DN4geOo5pwOrQGXoqQc');"></div>
+<div class="absolute inset-0 bg-black/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-white drop-shadow-md">zoom_in</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 mb-1">
+<h3 class="font-semibold text-text-main-light dark:text-text-main-dark truncate">Dr. Smith Dental</h3>
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wide">Pending</span>
+</div>
+<p class="text-sm text-text-sub-light dark:text-text-sub-dark truncate">Service Date: Oct 12, 2023</p>
+<p class="text-sm text-text-sub-light dark:text-text-sub-dark truncate">Amount: $150.00</p>
+</div>
+<button class="text-primary hover:text-primary/80 font-medium text-sm">Edit</button>
+</div>
+</div>
+<!-- Issues Found Section -->
+<div class="px-4 py-4">
+<div class="flex flex-col gap-3">
+<p class="text-sm font-medium text-text-main-light dark:text-text-main-dark">Why was this flagged?</p>
+<div class="flex items-start gap-3 p-3 rounded-lg bg-background-light dark:bg-background-dark border border-transparent hover:border-border-light dark:hover:border-border-dark transition-colors">
+<div class="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-red-600 dark:text-red-400 text-lg">calendar_today</span>
+</div>
+<div>
+<p class="text-sm font-medium text-text-main-light dark:text-text-main-dark">Date of Service Unclear</p>
+<p class="text-xs text-text-sub-light dark:text-text-sub-dark mt-0.5">The year appears to be cut off.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 rounded-lg bg-background-light dark:bg-background-dark border border-transparent hover:border-border-light dark:hover:border-border-dark transition-colors">
+<div class="w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-orange-600 dark:text-orange-400 text-lg">badge</span>
+</div>
+<div>
+<p class="text-sm font-medium text-text-main-light dark:text-text-main-dark">Provider Name Low Confidence</p>
+<p class="text-xs text-text-sub-light dark:text-text-sub-dark mt-0.5">Could not match signature to printed name.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Recommendation Card -->
+<div class="px-4 mb-6">
+<div class="bg-primary/5 dark:bg-primary/10 rounded-xl p-4 border border-primary/20 dark:border-primary/20">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-xl">speed</span>
+<h3 class="text-sm font-bold text-primary">Get reimbursed 2x faster</h3>
+</div>
+<p class="text-xs text-text-main-light dark:text-text-main-dark leading-relaxed mb-3">
+                        Re-uploading a clearer photo allows our AI to process your claim instantly. Submitting as-is will require manual review (3-5 business days).
+                    </p>
+<button class="w-full py-2.5 px-4 rounded-lg bg-white dark:bg-surface-dark border border-border-light dark:border-border-dark text-text-main-light dark:text-text-main-dark font-medium text-sm shadow-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">upload_file</span>
+                        Re-upload Document
+                    </button>
+</div>
+</div>
+<div class="h-6"></div>
+</main>
+<!-- Sticky Bottom Actions -->
+<div class="absolute bottom-[72px] left-0 right-0 p-4 bg-surface-light/95 dark:bg-surface-dark/95 backdrop-blur-sm border-t border-border-light dark:border-border-dark z-20">
+<div class="flex flex-col gap-3">
+<button class="w-full py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-semibold text-base shadow-lg shadow-primary/20 transition-all active:scale-[0.98]">
+                    Submit Anyway
+                </button>
+<button class="w-full py-2 text-text-sub-light dark:text-text-sub-dark text-xs font-medium hover:text-primary dark:hover:text-primary transition-colors flex items-center justify-center gap-1">
+                    Need help? Request Manual Review
+                </button>
+</div>
+</div>
+<!-- Bottom Nav Bar -->
+<nav class="h-[72px] bg-surface-light dark:bg-surface-dark border-t border-border-light dark:border-border-dark flex w-full z-30 shrink-0">
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-text-sub-light dark:text-text-sub-dark hover:text-primary dark:hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">home</span>
+<span class="text-[10px] font-medium tracking-wide">Home</span>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-primary dark:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl fill-current" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="text-[10px] font-medium tracking-wide">Claims</span>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-text-sub-light dark:text-text-sub-dark hover:text-primary dark:hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">credit_card</span>
+<span class="text-[10px] font-medium tracking-wide">Cards</span>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-text-sub-light dark:text-text-sub-dark hover:text-primary dark:hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">person</span>
+<span class="text-[10px] font-medium tracking-wide">Profile</span>
+</a>
+</nav>
+</div>
+</body></html>

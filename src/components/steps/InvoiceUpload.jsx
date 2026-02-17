@@ -38,92 +38,161 @@ export default function InvoiceUpload({ state, analyseInvoice, dispatch }) {
 
   if (ui.isLoading) {
     return (
-      <StepWrapper title="Analysing Invoice">
-        <Spinner text="Analysing your document…" />
+      <StepWrapper title="Scanning Document">
+        <div className="flex flex-col items-center py-8">
+          {/* Document scanning animation */}
+          <div className="relative mb-6 aspect-[3/4] w-48 overflow-hidden rounded-xl border-2 border-primary bg-gray-100">
+            {/* Corner brackets */}
+            <div className="absolute left-2 top-2 h-6 w-6 border-l-4 border-t-4 border-primary rounded-tl-lg" />
+            <div className="absolute right-2 top-2 h-6 w-6 border-r-4 border-t-4 border-primary rounded-tr-lg" />
+            <div className="absolute bottom-2 left-2 h-6 w-6 border-b-4 border-l-4 border-primary rounded-bl-lg" />
+            <div className="absolute bottom-2 right-2 h-6 w-6 border-b-4 border-r-4 border-primary rounded-br-lg" />
+
+            {/* Scanning line animation */}
+            <div className="absolute left-4 right-4 top-0 h-0.5 animate-pulse bg-primary shadow-[0_0_15px_3px_rgba(61,92,255,0.6)]"
+              style={{ animation: "scan 2s ease-in-out infinite" }}
+            />
+
+            {/* Processing chip */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/60 px-3 py-1 backdrop-blur-md">
+              <span className="text-xs font-medium text-white">Processing...</span>
+            </div>
+          </div>
+
+          <p className="text-sm font-medium text-text-primary">Analysing your document</p>
+          <p className="text-xs text-text-secondary">This may take a few seconds</p>
+        </div>
+
+        <style>{`
+          @keyframes scan {
+            0%, 100% { top: 10%; }
+            50% { top: 85%; }
+          }
+        `}</style>
       </StepWrapper>
     );
   }
 
   return (
     <StepWrapper
-      title="Upload Invoice"
-      description="Upload a clear photo or scan of your printed invoice."
+      title="Upload Documents"
+      description="Upload your medical bills and documents."
     >
-      <div className="space-y-5">
-        {/* Drop zone */}
+      <div className="space-y-6">
+        {/* Info banner */}
+        <div className="rounded-xl border border-blue-100 bg-[#EBF5FF] p-4">
+          <h3 className="mb-2 font-semibold text-text-primary">
+            Please upload all your <span className="border-b-2 border-primary/50">medical bills and docs</span> to claim your reimbursement.
+          </h3>
+          <ul className="space-y-1.5 text-sm text-text-secondary">
+            <li className="flex items-start gap-2">
+              <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary" />
+              <span>Upload clear, printed invoices for Fast Track processing.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary" />
+              <span>Handwritten bills will not be accepted.</span>
+            </li>
+          </ul>
+        </div>
+
+        {/* Invoice upload card */}
+        <div className={`rounded-2xl border p-4 shadow-sm transition-all ${
+          claim.uploadedFile
+            ? "border-teal/30 bg-mint-green"
+            : "border-red-100 bg-red-50"
+        }`}>
+          <div className="flex items-start justify-between">
+            <div className="flex items-center gap-3">
+              <div className={`flex h-10 w-10 items-center justify-center rounded-full border shadow-sm ${
+                claim.uploadedFile
+                  ? "border-teal/30 bg-teal text-white"
+                  : "border-red-100 bg-white text-coral"
+              }`}>
+                <span className="material-icons-round">receipt_long</span>
+              </div>
+              <div>
+                <h3 className="font-bold text-text-primary">
+                  INVOICE {!claim.uploadedFile && <span className="ml-1 text-xs font-normal text-coral">*Required</span>}
+                </h3>
+                {claim.uploadedFile ? (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-teal/20 px-2 py-0.5 text-xs font-medium text-teal">
+                    <span className="material-icons-round text-sm">check_circle</span>
+                    Uploaded
+                  </span>
+                ) : (
+                  <span className="inline-flex rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800">
+                    Pending
+                  </span>
+                )}
+              </div>
+            </div>
+            <button
+              onClick={() => inputRef.current?.click()}
+              className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-primary-hover active:scale-95"
+            >
+              {claim.uploadedFile ? "Replace" : "Upload"}
+            </button>
+          </div>
+
+          {/* Preview or instructions */}
+          {claim.uploadedFile ? (
+            <div className="mt-4 rounded-xl border border-white/50 bg-white p-3">
+              <div className="flex items-center gap-3">
+                {claim.filePreview ? (
+                  <img
+                    src={claim.filePreview}
+                    alt="Preview"
+                    className="h-16 w-16 rounded-lg object-cover"
+                  />
+                ) : (
+                  <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-gray-100">
+                    <span className="material-icons-round text-2xl text-gray-400">description</span>
+                  </div>
+                )}
+                <div className="flex-1 min-w-0">
+                  <p className="truncate text-sm font-medium text-text-primary">{claim.uploadedFile.name}</p>
+                  <p className="text-xs text-text-secondary">{(claim.uploadedFile.size / 1024).toFixed(0)} KB</p>
+                </div>
+                <button
+                  onClick={() => dispatch({ type: "SET_FILE", file: null, preview: null })}
+                  className="flex h-8 w-8 items-center justify-center rounded-full text-text-secondary hover:bg-gray-100 hover:text-coral"
+                >
+                  <span className="material-icons-round text-xl">close</span>
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-4 rounded-xl border border-red-100 bg-white p-3">
+              <p className="text-sm text-text-secondary leading-relaxed">
+                Please upload the invoice here. Ensure it is clear and printed.
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Drop zone (hidden but functional) */}
         <div
-          onClick={() => !claim.uploadedFile && inputRef.current?.click()}
           onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
           onDragLeave={() => setDragOver(false)}
           onDrop={handleDrop}
-          className={`relative flex min-h-48 cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed transition-colors ${
+          className={`rounded-xl border-2 border-dashed p-6 text-center transition-all ${
             dragOver
-              ? "border-indigo-400 bg-indigo-50"
-              : claim.uploadedFile
-              ? "border-green-300 bg-green-50"
-              : "border-gray-300 bg-gray-50 hover:border-indigo-300 hover:bg-indigo-50"
+              ? "border-primary bg-primary-light"
+              : "border-gray-200 bg-gray-50"
           }`}
         >
-          {claim.filePreview ? (
-            /* Image preview */
-            <div className="flex w-full flex-col items-center gap-3 p-4">
-              <img
-                src={claim.filePreview}
-                alt="Invoice preview"
-                className="max-h-56 rounded-lg object-contain shadow-sm"
-              />
-              <p className="text-xs text-gray-500">{claim.uploadedFile?.name}</p>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  dispatch({ type: "SET_FILE", file: null, preview: null });
-                }}
-                className="rounded-md border border-gray-300 bg-white px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-50"
-              >
-                Remove
-              </button>
-            </div>
-          ) : claim.uploadedFile ? (
-            /* PDF or non-image file */
-            <div className="flex flex-col items-center gap-3 p-6">
-              <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-indigo-100">
-                <svg className="h-8 w-8 text-indigo-600" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12.75 2.75a.75.75 0 00-1.5 0V11.25H3.75a.75.75 0 000 1.5h7.5V21.25a.75.75 0 001.5 0V12.75h7.5a.75.75 0 000-1.5h-7.5V2.75z" />
-                </svg>
-              </div>
-              <div className="text-center">
-                <p className="text-sm font-medium text-gray-700">{claim.uploadedFile.name}</p>
-                <p className="text-xs text-gray-400">
-                  {(claim.uploadedFile.size / 1024).toFixed(0)} KB
-                </p>
-              </div>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  dispatch({ type: "SET_FILE", file: null, preview: null });
-                }}
-                className="rounded-md border border-gray-300 bg-white px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-50"
-              >
-                Remove
-              </button>
-            </div>
-          ) : (
-            /* Empty state */
-            <div className="flex flex-col items-center gap-3 p-6 text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-100">
-                <svg className="h-7 w-7 text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-gray-700">
-                  Drop your invoice here, or{" "}
-                  <span className="text-indigo-600">browse</span>
-                </p>
-                <p className="mt-1 text-xs text-gray-400">Supports JPG, PNG, WebP, HEIC, PDF</p>
-              </div>
-            </div>
-          )}
+          <span className="material-icons-round mb-2 text-3xl text-text-secondary">cloud_upload</span>
+          <p className="text-sm text-text-secondary">
+            Drag & drop here, or{" "}
+            <button
+              onClick={() => inputRef.current?.click()}
+              className="font-semibold text-primary hover:underline"
+            >
+              browse files
+            </button>
+          </p>
+          <p className="mt-1 text-xs text-gray-400">JPG, PNG, WebP, HEIC, PDF</p>
         </div>
 
         <input
@@ -136,13 +205,19 @@ export default function InvoiceUpload({ state, analyseInvoice, dispatch }) {
 
         {/* Error */}
         {ui.error && (
-          <div className="rounded-lg border border-red-200 bg-red-50 p-3">
-            <p className="text-sm text-red-700">{ui.error}</p>
+          <div className="flex gap-3 rounded-xl border border-red-200 bg-coral-light p-4">
+            <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-coral text-white">
+              <span className="material-icons-round text-base">close</span>
+            </span>
+            <div className="flex-1">
+              <p className="text-sm font-medium text-deep-red">Upload Error</p>
+              <p className="text-sm text-red-700">{ui.error}</p>
+            </div>
             <button
               onClick={() => dispatch({ type: "SET_ERROR", message: null })}
-              className="mt-1 text-xs font-medium text-red-600 underline"
+              className="text-text-secondary hover:text-text-primary"
             >
-              Dismiss
+              <span className="material-icons-round">close</span>
             </button>
           </div>
         )}
@@ -151,9 +226,14 @@ export default function InvoiceUpload({ state, analyseInvoice, dispatch }) {
         <button
           onClick={handleAnalyse}
           disabled={!claim.uploadedFile || ui.isLoading}
-          className="w-full rounded-lg bg-indigo-600 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-40"
+          className={`w-full rounded-xl py-4 text-base font-bold transition-all active:scale-[0.98] ${
+            claim.uploadedFile
+              ? "bg-primary text-white shadow-lg shadow-primary/30 hover:bg-primary-hover"
+              : "cursor-not-allowed bg-gray-200 text-text-secondary"
+          }`}
         >
-          Analyse Invoice
+          Scan & Review
+          <span className="material-icons-round ml-2 align-middle text-xl">document_scanner</span>
         </button>
       </div>
     </StepWrapper>

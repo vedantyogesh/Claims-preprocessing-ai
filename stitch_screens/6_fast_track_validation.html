@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fast Track Claim Validation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "primary-dark": "#0fae42",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                        "neutral-light": "#eef2ef",
+                        "neutral-dark": "#1c2b21",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-neutral-900 dark:text-white antialiased">
+<!-- Main Container -->
+<div class="relative flex min-h-screen w-full flex-col max-w-md mx-auto bg-white dark:bg-neutral-dark shadow-xl overflow-hidden">
+<!-- Top App Bar -->
+<div class="flex items-center p-4 bg-white dark:bg-neutral-dark sticky top-0 z-10 border-b border-neutral-100 dark:border-neutral-800">
+<button class="text-neutral-900 dark:text-white flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h2 class="text-neutral-900 dark:text-white text-lg font-bold leading-tight flex-1 text-center pr-10">Claim Validation</h2>
+</div>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto pb-24">
+<!-- Hero Status Section -->
+<div class="px-6 pt-8 pb-6 flex flex-col items-center text-center">
+<div class="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mb-6 animate-pulse">
+<div class="w-14 h-14 rounded-full bg-primary flex items-center justify-center shadow-lg shadow-primary/40">
+<span class="material-symbols-outlined text-neutral-900 text-4xl" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+</div>
+<h1 class="text-neutral-900 dark:text-white text-3xl font-black tracking-tight mb-2">
+                    Looks good!
+                </h1>
+<div class="inline-flex items-center gap-1.5 bg-primary/10 dark:bg-primary/20 px-3 py-1 rounded-full mb-3">
+<span class="material-symbols-outlined text-primary-dark dark:text-primary text-sm" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="text-primary-dark dark:text-primary text-xs font-bold uppercase tracking-wide">Fast Track Approved</span>
+</div>
+<p class="text-neutral-500 dark:text-neutral-400 text-sm max-w-[280px] leading-relaxed">
+                    This claim qualifies for expedited review. Expect processing within <strong class="text-neutral-900 dark:text-white font-semibold">24-48 hours</strong>.
+                </p>
+</div>
+<!-- Extracted Data Card -->
+<div class="px-4 mb-6">
+<div class="bg-white dark:bg-neutral-dark border border-neutral-100 dark:border-neutral-700 rounded-2xl shadow-sm overflow-hidden">
+<!-- Header of Card -->
+<div class="p-4 border-b border-neutral-100 dark:border-neutral-800 flex justify-between items-start bg-neutral-50/50 dark:bg-white/5">
+<div>
+<p class="text-neutral-500 dark:text-neutral-400 text-xs font-medium uppercase tracking-wider mb-1">Total Amount</p>
+<p class="text-neutral-900 dark:text-white text-3xl font-bold tracking-tight">₹ 850</p>
+</div>
+<div class="h-10 w-10 bg-neutral-200 dark:bg-neutral-600 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-neutral-500 dark:text-neutral-300">receipt_long</span>
+</div>
+</div>
+<!-- Receipt Preview & Basic Info -->
+<div class="p-4 flex gap-4">
+<!-- Receipt Thumbnail -->
+<div class="relative w-20 h-24 shrink-0 rounded-lg overflow-hidden bg-neutral-100 dark:bg-neutral-800 group cursor-pointer border border-neutral-200 dark:border-neutral-700">
+<div class="absolute inset-0 bg-cover bg-center opacity-80" data-alt="Thumbnail of the scanned medical receipt showing blurred text lines" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCm27QFbVJFvkZhJT8fnActXpIOGzUX4ebTIqS1XkQD2n20Z9YxCs4WEhgcHBv4N9zelx4A5n9y6xgi0YUyGblyKP6vhqPJIoQeIuGGgQhvI58_KfoNVewvVwJSG3EiA24IdUsuh-S6-sMWqFRBd8a3SNXed0HtZhGOwug1LCQGkveWQLktI9dM1udn50lSThQZEFCE7MJTpFuI-_ZdwrXgUysp8Djep2-UCyU9K56JRcRhUBVSy4veHNEXdGs09zFiDndAYPZ1j6s');"></div>
+<div class="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/10 transition-colors">
+<span class="material-symbols-outlined text-neutral-600 dark:text-neutral-400 text-xl">zoom_in</span>
+</div>
+</div>
+<!-- Info -->
+<div class="flex-1 flex flex-col justify-center gap-1">
+<h3 class="font-bold text-neutral-900 dark:text-white text-lg">Apollo Clinic</h3>
+<p class="text-sm text-neutral-500 dark:text-neutral-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                                Oct 24, 2023
+                            </p>
+<button class="mt-2 text-sm font-semibold text-primary-dark dark:text-primary flex items-center gap-1 hover:underline w-fit">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                                Edit Details
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Detailed Breakdown -->
+<div class="px-4 mb-4">
+<h3 class="text-neutral-900 dark:text-white font-bold text-base mb-3 px-1">Review Details</h3>
+<div class="bg-neutral-light/50 dark:bg-neutral-800/50 rounded-xl p-4 flex flex-col gap-4">
+<div class="flex justify-between items-center pb-3 border-b border-neutral-200 dark:border-neutral-700 border-dashed">
+<span class="text-neutral-500 dark:text-neutral-400 text-sm">Service Type</span>
+<span class="text-neutral-900 dark:text-white font-medium text-sm text-right">General Consultation</span>
+</div>
+<div class="flex justify-between items-center pb-3 border-b border-neutral-200 dark:border-neutral-700 border-dashed">
+<span class="text-neutral-500 dark:text-neutral-400 text-sm">Patient Name</span>
+<span class="text-neutral-900 dark:text-white font-medium text-sm text-right">Rahul Sharma</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-neutral-500 dark:text-neutral-400 text-sm">Policy Number</span>
+<span class="text-neutral-900 dark:text-white font-medium text-sm text-right">Health-Plus-8842</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Fixed Bottom Actions -->
+<div class="absolute bottom-0 left-0 w-full p-4 bg-white dark:bg-neutral-dark border-t border-neutral-100 dark:border-neutral-800 backdrop-blur-md bg-opacity-90 dark:bg-opacity-90">
+<div class="flex flex-col gap-3">
+<button class="flex w-full cursor-pointer items-center justify-center rounded-xl h-12 px-6 bg-primary hover:bg-opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-primary/30 text-neutral-900 text-base font-bold tracking-wide">
+                    Submit Claim
+                </button>
+<button class="flex w-full cursor-pointer items-center justify-center rounded-xl h-10 px-6 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-sm font-medium">
+<span class="material-symbols-outlined text-[18px] mr-2">upload_file</span>
+                    Re-upload Document
+                </button>
+</div>
+<!-- Safe Area Spacer for iOS Home Indicator -->
+<div class="h-4"></div>
+</div>
+</div>
+</body></html>

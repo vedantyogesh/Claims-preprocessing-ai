@@ -1,8 +1,16 @@
 import { useState } from "react";
 import StepWrapper from "../layout/StepWrapper";
+import ApiKeyInput from "../ui/ApiKeyInput";
 import { SERVICE_TYPES } from "../../constants";
 
-export default function ClaimCreation({ dispatch }) {
+const SERVICE_ICONS = {
+  "Doctor Visit": "medical_services",
+  "Pharmacy": "medication",
+  "Diagnostic / Lab": "biotech",
+};
+
+export default function ClaimCreation({ state, dispatch }) {
+  const userApiKey = state?.ui?.userApiKey ?? "";
   const [serviceType, setServiceType] = useState("");
   const [amount, setAmount] = useState("");
   const [touched, setTouched] = useState(false);
@@ -24,40 +32,82 @@ export default function ClaimCreation({ dispatch }) {
       title="New OPD Claim"
       description="Tell us about your medical expense before uploading the invoice."
     >
-      <form onSubmit={handleSubmit} className="space-y-5">
-        {/* Service Type */}
+      {/* Info banner */}
+      <div className="mb-6 rounded-xl border border-blue-100 bg-[#EBF5FF] p-4">
+        <div className="flex items-start gap-3">
+          <span className="material-icons-round text-primary">info</span>
+          <div className="text-sm text-text-secondary">
+            <p className="font-medium text-text-primary">Quick tip</p>
+            <p className="mt-0.5">Have your invoice ready. Clear, printed invoices qualify for Fast Track processing.</p>
+          </div>
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Service Type Cards */}
         <div>
-          <label className="mb-1.5 block text-sm font-semibold text-gray-700">
-            Service Type <span className="text-red-500">*</span>
+          <label className="mb-3 block text-sm font-semibold text-text-primary">
+            What type of service? <span className="text-coral">*</span>
           </label>
-          <select
-            value={serviceType}
-            onChange={(e) => setServiceType(e.target.value)}
-            className={`w-full rounded-lg border px-3 py-2.5 text-sm text-gray-900 shadow-sm outline-none focus:ring-2 focus:ring-indigo-300 ${
-              touched && !serviceType ? "border-red-300 bg-red-50" : "border-gray-300 bg-white"
-            }`}
-          >
-            <option value="">Select a service type…</option>
-            {SERVICE_TYPES.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
+          <div className="grid gap-3">
+            {SERVICE_TYPES.map((type) => {
+              const isSelected = serviceType === type;
+              return (
+                <button
+                  key={type}
+                  type="button"
+                  onClick={() => setServiceType(type)}
+                  className={`flex items-center gap-4 rounded-xl border-2 p-4 text-left transition-all ${
+                    isSelected
+                      ? "border-primary bg-primary-light"
+                      : touched && !serviceType
+                      ? "border-red-300 bg-coral-light"
+                      : "border-gray-200 bg-surface-light hover:border-gray-300"
+                  }`}
+                >
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-full ${
+                    isSelected ? "bg-primary text-white" : "bg-gray-100 text-text-secondary"
+                  }`}>
+                    <span className="material-icons-round text-2xl">
+                      {SERVICE_ICONS[type] || "medical_services"}
+                    </span>
+                  </div>
+                  <div className="flex-1">
+                    <p className={`font-semibold ${isSelected ? "text-primary" : "text-text-primary"}`}>
+                      {type}
+                    </p>
+                    <p className="text-xs text-text-secondary">
+                      {type === "Doctor Visit" && "Consultations & checkups"}
+                      {type === "Pharmacy" && "Medicine purchases"}
+                      {type === "Diagnostic / Lab" && "Lab tests & diagnostics"}
+                    </p>
+                  </div>
+                  {isSelected && (
+                    <span className="material-icons-round text-primary">check_circle</span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
           {touched && !serviceType && (
-            <p className="mt-1 text-xs text-red-500">Please select a service type</p>
+            <p className="mt-2 flex items-center gap-1 text-xs text-coral">
+              <span className="material-icons-round text-sm">error</span>
+              Please select a service type
+            </p>
           )}
         </div>
 
         {/* Amount */}
         <div>
-          <label className="mb-1.5 block text-sm font-semibold text-gray-700">
-            Claimed Amount (₹) <span className="text-red-500">*</span>
+          <label className="mb-2 block text-sm font-semibold text-text-primary">
+            Claimed Amount <span className="text-coral">*</span>
           </label>
-          <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-medium text-gray-400">
-              ₹
-            </span>
+          <div className={`flex items-center rounded-xl border-2 bg-surface-light px-4 py-3 transition-all focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 ${
+            touched && (!amount || Number(amount) <= 0)
+              ? "border-red-300 bg-coral-light"
+              : "border-gray-200"
+          }`}>
+            <span className="text-lg font-bold text-text-secondary">₹</span>
             <input
               type="number"
               min="1"
@@ -65,24 +115,32 @@ export default function ClaimCreation({ dispatch }) {
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="0"
-              className={`w-full rounded-lg border py-2.5 pl-7 pr-3 text-sm text-gray-900 shadow-sm outline-none focus:ring-2 focus:ring-indigo-300 ${
-                touched && (!amount || Number(amount) <= 0)
-                  ? "border-red-300 bg-red-50"
-                  : "border-gray-300 bg-white"
-              }`}
+              className="ml-2 flex-1 bg-transparent text-2xl font-bold text-text-primary outline-none placeholder:text-gray-300"
             />
           </div>
           {touched && (!amount || Number(amount) <= 0) && (
-            <p className="mt-1 text-xs text-red-500">Please enter a valid amount</p>
+            <p className="mt-2 flex items-center gap-1 text-xs text-coral">
+              <span className="material-icons-round text-sm">error</span>
+              Please enter a valid amount
+            </p>
           )}
         </div>
 
         <button
           type="submit"
-          className="w-full rounded-lg bg-indigo-600 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-1 disabled:opacity-50"
+          disabled={!isValid && touched}
+          className={`w-full rounded-xl py-4 text-base font-bold transition-all active:scale-[0.98] ${
+            isValid
+              ? "bg-primary text-white shadow-lg shadow-primary/30 hover:bg-primary-hover"
+              : "bg-gray-200 text-text-secondary"
+          }`}
         >
           Continue to Upload
+          <span className="material-icons-round ml-2 align-middle text-xl">arrow_forward</span>
         </button>
+
+        {/* BYOK — placed below the primary CTA so it doesn't distract */}
+        <ApiKeyInput userApiKey={userApiKey} dispatch={dispatch} />
       </form>
     </StepWrapper>
   );

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Submission Success</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3B82F6", // Blue typical for healthcare/finance apps
+                        "background-light": "#F3F4F6", // Slate-100/Gray-100
+                        "background-dark": "#111827", // Gray-900
+                        success: "#10B981", // Emerald-500
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                        sans: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        'xl': '1rem',
+                        '2xl': '1.5rem',
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                },
+            },
+        };
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-sans min-h-screen flex items-center justify-center p-4">
+<div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-3xl shadow-soft overflow-hidden relative min-h-[800px] flex flex-col">
+<div class="h-12 w-full flex justify-between items-center px-6 pt-2 z-10">
+<div class="text-sm font-semibold text-gray-900 dark:text-white">9:41</div>
+<div class="flex gap-1.5 items-center">
+<span class="material-icons-round text-gray-900 dark:text-white text-base">signal_cellular_alt</span>
+<span class="material-icons-round text-gray-900 dark:text-white text-base">wifi</span>
+<span class="material-icons-round text-gray-900 dark:text-white text-base">battery_full</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col px-6 pt-8 pb-8 text-center items-center">
+<div class="mt-8 mb-6 relative">
+<div class="w-24 h-24 rounded-full bg-green-50 dark:bg-green-900/20 flex items-center justify-center mx-auto mb-6 ring-8 ring-green-50/50 dark:ring-green-900/10">
+<span class="material-icons-round text-5xl text-success">check_circle</span>
+</div>
+</div>
+<h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Claim Received</h1>
+<p class="text-gray-500 dark:text-gray-400 text-sm mb-8 leading-relaxed">
+                Your reimbursement request has been successfully submitted. We've sent a confirmation email to <span class="text-gray-900 dark:text-gray-200 font-medium">nitin.jain@example.com</span>.
+            </p>
+<div class="w-full bg-gray-50 dark:bg-gray-700/50 rounded-2xl p-5 mb-6 border border-gray-100 dark:border-gray-700 text-left">
+<div class="flex justify-between items-start mb-4 pb-4 border-b border-gray-200 dark:border-gray-600 border-dashed">
+<div>
+<p class="text-xs text-gray-500 dark:text-gray-400 mb-1">Claim Reference</p>
+<p class="text-base font-semibold text-gray-900 dark:text-white tracking-wide">#CLM-89204</p>
+</div>
+<div class="text-right">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                            Standard Track
+                        </span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-white dark:bg-gray-600 flex items-center justify-center shadow-sm text-primary">
+<span class="material-icons-round text-xl">schedule</span>
+</div>
+<div>
+<p class="text-xs text-gray-500 dark:text-gray-400">Expected Resolution</p>
+<p class="text-sm font-semibold text-gray-900 dark:text-white">5-7 Business Days</p>
+</div>
+</div>
+</div>
+<div class="w-full text-left mb-auto">
+<h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-4 uppercase tracking-wider text-xs opacity-80">What's Next?</h3>
+<div class="space-y-6 relative pl-2">
+<div class="absolute left-[19px] top-2 bottom-4 w-0.5 bg-gray-200 dark:bg-gray-700"></div>
+<div class="relative flex items-start gap-4">
+<div class="relative z-10 flex-shrink-0 w-4 h-4 mt-1 rounded-full bg-success border-2 border-white dark:border-gray-800 shadow-sm"></div>
+<div>
+<p class="text-sm font-medium text-gray-900 dark:text-white">Document Verification</p>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Our team will verify your submitted invoices.</p>
+</div>
+</div>
+<div class="relative flex items-start gap-4">
+<div class="relative z-10 flex-shrink-0 w-4 h-4 mt-1 rounded-full bg-gray-200 dark:bg-gray-600 border-2 border-white dark:border-gray-800"></div>
+<div>
+<p class="text-sm font-medium text-gray-900 dark:text-white opacity-60">Medical Review</p>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5 opacity-60">A medical expert reviews the treatment details.</p>
+</div>
+</div>
+<div class="relative flex items-start gap-4">
+<div class="relative z-10 flex-shrink-0 w-4 h-4 mt-1 rounded-full bg-gray-200 dark:bg-gray-600 border-2 border-white dark:border-gray-800"></div>
+<div>
+<p class="text-sm font-medium text-gray-900 dark:text-white opacity-60">Final Approval</p>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5 opacity-60">Payout is processed to your bank account.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6 pb-8 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700">
+<button class="w-full bg-primary hover:bg-blue-600 text-white font-medium py-3.5 px-4 rounded-xl shadow-lg shadow-blue-500/30 transition-all duration-200 flex items-center justify-center gap-2">
+                Back to Home
+            </button>
+<button class="w-full mt-3 bg-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 font-medium py-3 px-4 rounded-xl text-sm transition-colors">
+                View Submitted Claim
+            </button>
+</div>
+</div>
+
+</body></html>

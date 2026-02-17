@@ -14,4 +14,4 @@ export const SLA = {
   MEDIUM: "3–5 business days",
 };
 
-export const GEMINI_MODEL = "gemini-1.5-flash";
+export const GEMINI_MODEL = "gemini-2.0-flash-lite";
